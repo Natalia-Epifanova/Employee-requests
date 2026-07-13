@@ -1,0 +1,17 @@
+﻿{% extends "requests_app/base.html" %}
+
+{% block title %}Изменение исполнителя{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+    <h2>Изменение исполнителя заявки {{ request_instance.number }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="actions">
+            <button type="submit">Сохранить</button>
+            <a class="button secondary" href="{% url 'requests_app:request_list' %}">Назад</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
