@@ -13,7 +13,26 @@
     <h2>Фильтры</h2>
     <form method="get">
         <div class="filters">
-            {{ filter_form.as_p }}
+            <div class="filter-field">
+                {{ filter_form.status.label_tag }}
+                {{ filter_form.status }}
+                {{ filter_form.status.errors }}
+            </div>
+            <div class="filter-field">
+                {{ filter_form.assignee.label_tag }}
+                {{ filter_form.assignee }}
+                {{ filter_form.assignee.errors }}
+            </div>
+            <div class="filter-field">
+                {{ filter_form.department.label_tag }}
+                {{ filter_form.department }}
+                {{ filter_form.department.errors }}
+            </div>
+            <div class="filter-field filter-field--checkbox">
+                {{ filter_form.is_overdue.label_tag }}
+                {{ filter_form.is_overdue }}
+                {{ filter_form.is_overdue.errors }}
+            </div>
         </div>
         <div class="actions">
             <button type="submit">Применить</button>

@@ -26,7 +26,11 @@
         .actions { display: flex; gap: 10px; flex-wrap: wrap; }
         .button, button { background: #1f4b99; color: #fff; border: none; padding: 10px 16px; border-radius: 8px; text-decoration: none; cursor: pointer; }
         .button.secondary { background: #64748b; }
-        .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; align-items: end; }
+        .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; align-items: start; margin-bottom: 12px; }
+        .filter-field { display: flex; flex-direction: column; gap: 4px; }
+        .filter-field select { width: 100%; max-width: none; }
+        .filter-field--checkbox { flex-direction: row; align-items: center; align-self: end; gap: 8px; min-height: 40px; padding-bottom: 1px; }
+        .filter-field--checkbox input { margin: 0; }
         .inline-links a { margin-right: 12px; }
         .badge { display: inline-block; padding: 4px 10px; border-radius: 999px; background: #e2e8f0; }
         .pagination { display: flex; gap: 12px; align-items: center; margin-top: 18px; }
@@ -34,6 +38,7 @@
             .form-card form p { grid-template-columns: 1fr; gap: 6px; }
             .form-card form p label { text-align: left; }
             .form-card .actions { margin-left: 0; }
+            .filter-field--checkbox { align-self: start; min-height: auto; padding-bottom: 0; }
         }
     </style>
 </head>
