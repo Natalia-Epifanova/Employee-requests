@@ -29,11 +29,12 @@ class RequestListView(ListView):
     model = Request
     template_name = "requests_app/request_list.html"
     context_object_name = "requests"
+    paginate_by = 50
 
     def get_queryset(self):
         """Возвращает queryset заявок с учетом выбранных фильтров."""
 
-        queryset = Request.objects.all()
+        queryset = Request.objects.order_by("-id")
 
         self.filter_form = RequestFilterForm(self.request.GET or None)
         if not self.filter_form.is_valid():
