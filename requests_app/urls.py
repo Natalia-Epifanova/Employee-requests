@@ -1,9 +1,10 @@
-﻿from django.urls import path
+from django.urls import path
 
 from .views import (
     EmployeeCreateView,
     EmployeeListView,
     HomeRedirectView,
+    ReportView,
     RequestAssigneeUpdateView,
     RequestCreateView,
     RequestListView,
@@ -28,4 +29,5 @@ urlpatterns = [
     ),
     path("employees/", EmployeeListView.as_view(), name="employee_list"),
     path("employees/create/", EmployeeCreateView.as_view(), name="employee_create"),
+    path("reports/", ReportView.as_view(), name="reports"),
 ]

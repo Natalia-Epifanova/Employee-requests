@@ -1,7 +1,8 @@
-﻿from django.contrib import messages
+from django.contrib import messages
+from django.db.models import Count
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.views.generic import CreateView, ListView, RedirectView, UpdateView
+from django.views.generic import CreateView, ListView, RedirectView, TemplateView, UpdateView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormView
 
@@ -154,3 +155,37 @@ class EmployeeCreateView(CreateView):
 
         messages.success(self.request, "Сотрудник успешно создан.")
         return super().form_valid(form)
+
+
+class ReportView(TemplateView):
+    """Показывает сводный отчет по заявкам."""
+
+    template_name = "requests_app/reports.html"
+
+    def get_context_data(self, **kwargs):
+        """Собирает агрегированные показатели для отчетной страницы."""
+
+        context = super().get_context_data(**kwargs)
+        status_totals = dict(
+            Request.objects.values_list("status").annotate(total=Count("id"))
+        )
+        context["requests_by_status"] = [
+            {
+                "status": status,
+                "label": label,
+                "total": status_totals.get(status, 0),
+            }
+            for status, label in Request.Status.choices
+        ]
+        context["overdue_total"] = (
+            Request.objects.filter(due_date__lt=timezone.localdate())
+            .exclude(status=Request.Status.DONE)
+            .count()
+        )
+        context["completed_by_assignee"] = (
+            Request.objects.filter(status=Request.Status.DONE)
+            .values("assignee__full_name")
+            .annotate(total=Count("id"))
+            .order_by("assignee__full_name")
+        )
+        return context

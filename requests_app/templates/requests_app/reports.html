@@ -1,0 +1,59 @@
+{% extends "requests_app/base.html" %}
+
+{% block title %}Отчёты{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Отчёты по заявкам</h2>
+    <p>Сводные показатели по текущим данным в системе.</p>
+</div>
+
+<div class="card">
+    <h3>Количество заявок по статусам</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Статус</th>
+                <th>Количество</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in requests_by_status %}
+                <tr>
+                    <td>{{ item.label }}</td>
+                    <td>{{ item.total }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h3>Просроченные заявки</h3>
+    <p><strong>{{ overdue_total }}</strong></p>
+</div>
+
+<div class="card">
+    <h3>Выполненные заявки по исполнителям</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Исполнитель</th>
+                <th>Количество выполненных заявок</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in completed_by_assignee %}
+                <tr>
+                    <td>{{ item.assignee__full_name }}</td>
+                    <td>{{ item.total }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2">Выполненных заявок пока нет.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
