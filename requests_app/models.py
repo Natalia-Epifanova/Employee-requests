@@ -1,4 +1,4 @@
-﻿from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 
@@ -91,6 +91,14 @@ class Request(models.Model):
         verbose_name = "Заявка"
         verbose_name_plural = "Заявки"
         ordering = ("due_date", "number")
+        indexes = [
+            models.Index(fields=("status",), name="request_status_idx"),
+            models.Index(fields=("due_date",), name="request_due_date_idx"),
+            models.Index(
+                fields=("assignee", "status", "due_date"),
+                name="req_asg_status_due_idx",
+            ),
+        ]
 
     def __str__(self):
         return f"{self.number} ({self.get_status_display()})"
