@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Employee Requests{% endblock %}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f5f7fb; color: #1f2937; }
+        header { background: #1f4b99; color: #fff; padding: 16px 24px; }
+        nav a { color: #fff; margin-right: 16px; text-decoration: none; font-weight: 600; }
+        main { max-width: 1100px; margin: 24px auto; padding: 0 16px 32px; }
+        .card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08); margin-bottom: 20px; }
+        .messages { list-style: none; padding: 0; }
+        .messages li { background: #dcfce7; color: #166534; padding: 12px 14px; border-radius: 8px; margin-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: left; vertical-align: top; }
+        form p { margin-bottom: 14px; }
+        input, select, textarea { width: 100%; max-width: 480px; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; }
+        input[type="checkbox"] { width: auto; max-width: none; padding: 0; }
+        .form-card form { max-width: 620px; }
+        .form-card form p { display: grid; grid-template-columns: 120px minmax(260px, 420px); column-gap: 12px; align-items: center; margin: 0 0 14px; }
+        .form-card form p label { text-align: right; }
+        .form-card form p input:not([type="checkbox"]), .form-card form p select, .form-card form p textarea { width: 100%; max-width: none; }
+        .form-card form p input[type="checkbox"] { justify-self: start; margin: 0; }
+        .form-card .actions { margin-left: 132px; }
+        .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+        .button, button { background: #1f4b99; color: #fff; border: none; padding: 10px 16px; border-radius: 8px; text-decoration: none; cursor: pointer; }
+        .button.secondary { background: #64748b; }
+        .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; align-items: end; }
+        .inline-links a { margin-right: 12px; }
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 999px; background: #e2e8f0; }
+        @media (max-width: 640px) {
+            .form-card form p { grid-template-columns: 1fr; gap: 6px; }
+            .form-card form p label { text-align: left; }
+            .form-card .actions { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <a href="{% url 'requests_app:request_list' %}">Заявки</a>
+        <a href="{% url 'requests_app:employee_list' %}">Сотрудники</a>
+        <a href="/admin/">Админка</a>
+    </nav>
+</header>
+<main>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>

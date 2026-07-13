@@ -1,0 +1,39 @@
+﻿{% extends "requests_app/base.html" %}
+
+{% block title %}Сотрудники{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="actions">
+        <a class="button" href="{% url 'requests_app:employee_create' %}">Создать сотрудника</a>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Список сотрудников</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Подразделение</th>
+                <th>Должность</th>
+                <th>Активен</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+                <tr>
+                    <td>{{ employee.full_name }}</td>
+                    <td>{{ employee.department.name }}</td>
+                    <td>{{ employee.position.name }}</td>
+                    <td>{{ employee.is_active|yesno:"Да,Нет" }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">Сотрудники не найдены.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
