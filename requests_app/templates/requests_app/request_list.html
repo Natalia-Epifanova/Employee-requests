@@ -1,4 +1,4 @@
-{% extends "requests_app/base.html" %}
+﻿{% extends "requests_app/base.html" %}
 
 {% block title %}Заявки{% endblock %}
 
@@ -65,7 +65,7 @@
             {% endif %}
             <span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
             {% if page_obj.has_next %}
-                <a class="button secondary" href="{% querystring page=page_obj.next_page_number %}">Вперёд</a>
+                <a class="button secondary" href="{% querystring page=page_obj.next_page_number %}">Вперед</a>
             {% endif %}
         </div>
     {% endif %}

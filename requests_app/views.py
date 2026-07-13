@@ -1,4 +1,4 @@
-from django.contrib import messages
+﻿from django.contrib import messages
 from django.db.models import Count
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -113,7 +113,7 @@ class RequestStatusUpdateView(SingleObjectMixin, FormView):
 
         self.object.transition_to(form.cleaned_data["status"])
         self.object.save(update_fields=["status"])
-        messages.success(self.request, "Статус заявки обновлён.")
+        messages.success(self.request, "Статус заявки обновлен.")
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -136,7 +136,7 @@ class RequestAssigneeUpdateView(UpdateView):
     def form_valid(self, form):
         """Сохраняет нового исполнителя и показывает сообщение об успехе."""
 
-        messages.success(self.request, "Исполнитель заявки обновлён.")
+        messages.success(self.request, "Исполнитель заявки обновлен.")
         return super().form_valid(form)
 
 
@@ -146,6 +146,11 @@ class EmployeeListView(ListView):
     model = Employee
     template_name = "requests_app/employee_list.html"
     context_object_name = "employees"
+
+    def get_queryset(self):
+        """Возвращает сотрудников вместе со связанными справочниками."""
+
+        return Employee.objects.select_related("department", "position")
 
 
 class EmployeeCreateView(CreateView):
